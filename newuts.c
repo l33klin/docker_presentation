@@ -59,7 +59,7 @@ main(int argc, char *argv[])
     /* Create child that has its own UTS namespace;
        child commences execution in childFunc() */
 
-    pid = clone(childFunc, stackTop, CLONE_NEWUTS | SIGCHLD, argv[1]);
+    p = clone(childFunc, stackTop, CLONE_NEWUTS | SIGCHLD, argv[1]);
     if (pid == -1)
         errExit("clone");
     printf("clone() returned %ld\n", (long) pid);
