@@ -17,7 +17,7 @@ char* const child_args[] = {
 
 int child_main(void* args) {
     printf("In child process!\n");
-    sethostname("newhostname", 11);
+    // sethostname("newhostname", 11);
     execv(child_args[0], child_args);
     return 1;
 }
@@ -26,8 +26,10 @@ int main() {
     printf("Program start: \n");
     //int child_pid = clone(child_main, child_stack + STACK_SIZE, SIGCHLD, NULL);
     //int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWUTS | SIGCHLD, NULL);
-    int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWUTS | CLONE_NEWPID | SIGCHLD, NULL);
+    //int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWUTS | CLONE_NEWPID | SIGCHLD, NULL);
+    int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWPID | CLONE_NEWNS | SIGCHLD, NULL);
+    
     waitpid(child_pid, NULL, 0);
-    printf("Program exit\n");
+    printf("Program exit, %d\n", child_pid);
     return 0;
 }
