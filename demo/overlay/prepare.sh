@@ -4,14 +4,16 @@ T=test
 echo Create test
 mkdir -p $T
 
-echo Create A, B, W, C, D, E, W2
+echo Create A, B, C, D, E, W, W2
 cd $T
-mkdir A B W C D E W2
+mkdir A B C D E W W2
 
 echo Create some files
-echo a > A/a.txt
-echo b > A/b.txt
-echo c > B/c.txt
-echo d > D/d.txt
-ln A/a.txt B/a.txt
-ln B/c.txt D/c.txt
+echo ainA > A/a.txt
+echo binA > A/b.txt
+echo ainB > B/a.txt
+echo cinB > B/c.txt
+echo dinD > D/d.txt
+
+# ln A/a.txt B/a.txt
+# ln B/c.txt D/c.txt
