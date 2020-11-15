@@ -11,9 +11,10 @@ mkdir A B C D E W W2
 echo Create some files
 echo ainA > A/a.txt
 echo binA > A/b.txt
-echo ainB > B/a.txt
+echo binB > B/b.txt
 echo cinB > B/c.txt
-echo dinD > D/d.txt
+echo ainC > C/a.txt
+echo dinC > C/d.txt
 
 # ln A/a.txt B/a.txt
 # ln B/c.txt D/c.txt
