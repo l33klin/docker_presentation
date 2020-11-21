@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/mount.h>
 
 #define STACK_SIZE (1024*1024)
 
@@ -17,16 +18,16 @@ char* const child_args[] = {
 
 int child_main(void* args) {
     printf("In child process!\n");
-    // sethostname("newhostname", 11);
+    int mr = mount("none", "/proc", "proc", 0, NULL);
+    if (mr != 0) {
+	    exit(mr);
+    }
     execv(child_args[0], child_args);
     return 1;
 }
 
 int main() {
     printf("Program start: \n");
-    //int child_pid = clone(child_main, child_stack + STACK_SIZE, SIGCHLD, NULL);
-    //int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWUTS | SIGCHLD, NULL);
-    //int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWUTS | CLONE_NEWPID | SIGCHLD, NULL);
     int child_pid = clone(child_main, child_stack + STACK_SIZE, CLONE_NEWPID | CLONE_NEWNS | SIGCHLD, NULL);
     
     waitpid(child_pid, NULL, 0);
